@@ -1,5 +1,5 @@
 <?php
-//配置文件
+
 $config = array();
 $config['S_DB_TYPE'] = 'mysql';
 $config['S_DB_PATH'] = 'localhost';
