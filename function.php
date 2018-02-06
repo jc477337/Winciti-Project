@@ -1,11 +1,11 @@
 <?php
-//获取配置值
+
 function get_varia($var_name)
 {
 	$obj = new varia();
 	return $obj->get_value($var_name);
 }
-//获取指定ID的数据
+
 function get_data($table,$id,$field)
 {
 	$obj = new $table();
@@ -19,7 +19,7 @@ function get_data($table,$id,$field)
 		return '';
 	}
 }
-//获取指定数据的ID
+
 function get_id($table,$field,$value)
 {
 	$obj = new $table();
@@ -38,7 +38,7 @@ function get_id($table,$field,$value)
 		return 0;
 	}
 }
-//获取指定ID的分类及其所有子类
+
 function get_cat_family($table,$id)
 {
 	$obj = new $table();
@@ -71,7 +71,7 @@ function get_cat_family($table,$id)
 	}
 	return $family;
 }
-//严格过滤字符串中的危险符号
+
 function strict($str)
 {
 	if(S_MAGIC_QUOTES_GPC)
@@ -87,7 +87,7 @@ function strict($str)
 	$str = str_replace(chr(13).chr(10),'<br />',$str);
 	return $str;
 }
-//宽松过滤字符串中的危险符号
+
 function loose($str)
 {
 	if(S_MAGIC_QUOTES_GPC)
@@ -102,7 +102,7 @@ function loose($str)
 	$str = str_replace(chr(13).chr(10),'',$str);
 	return $str;
 }
-//不过滤
+
 function no_filter($str)
 {
 	if(S_MAGIC_QUOTES_GPC)
@@ -111,7 +111,7 @@ function no_filter($str)
 	}
 	return $str;
 }
-//截取字符串
+
 function cut_str($string,$sublen,$start = 0)
 {
 	$pr = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/";
@@ -152,7 +152,7 @@ function cut_str($string,$sublen,$start = 0)
 		return $return;
 	}
 }
-//修复HTML标签
+
 function repair_html(&$html)
 {
 	$a = strlen(strrchr($html,'<'));
@@ -163,7 +163,7 @@ function repair_html(&$html)
 	}
 	return $html;
 }
-//数字限界
+
 function num_bound($min,$max,$num)
 {
 	$num = intval($num);
@@ -176,7 +176,7 @@ function num_bound($min,$max,$num)
 	}
 	return $num;
 }
-//获取完整路径中的文件名或扩展名
+
 function get_file_name($full_path,$str)
 {
 	if($full_path != '')
@@ -186,7 +186,7 @@ function get_file_name($full_path,$str)
 		return '';
 	}
 }
-//设置全局变量数组
+
 function set_global($filter = 'loose')
 {
 	global $global;
@@ -211,13 +211,13 @@ function set_global($filter = 'loose')
 		}
 	}
 }
-//获取全局变量值
+
 function get_global($key,$val = '')
 {
 	global $global;
 	return isset($global[$key]) ? $global[$key] : $val;
 }
-//设置session
+
 function set_session($name,$value,$filter = 'strict')
 {
 	if(S_SESSION)
@@ -227,7 +227,7 @@ function set_session($name,$value,$filter = 'strict')
 		setcookie($name,$filter($value));
 	}
 }
-//获取session
+
 function get_session($name,$filter = 'strict')
 {
 	if(S_SESSION)
@@ -237,7 +237,7 @@ function get_session($name,$filter = 'strict')
 		return $filter(isset($_COOKIE[$name])?$_COOKIE[$name]:'');
 	}
 }
-//销毁session
+
 function unset_session($name)
 {
 	if(S_SESSION)
@@ -247,7 +247,7 @@ function unset_session($name)
 		setcookie($name,'',0);
 	}
 }
-//设置cookie
+
 function set_cookie($name,$value,$filter = 'strict',$expire = 0)
 {
 	if($expire == 0)
@@ -257,27 +257,27 @@ function set_cookie($name,$value,$filter = 'strict',$expire = 0)
 		setcookie($name,$filter($value),$expire);
 	}
 }
-//获取cookie
+
 function get_cookie($name,$filter = 'strict')
 {
 	return $filter(isset($_COOKIE[$name])?$_COOKIE[$name]:'');
 }
-//销毁cookie
+
 function unset_cookie($name)
 {
 	setcookie($name,'',0);
 }
-//获取post
+
 function post($val,$filter = 'strict')
 {
 	return $filter(isset($_POST[$val])?$_POST[$val]:'');
 }
-//获取get
+
 function get($val,$filter = 'strict')
 {
 	return $filter(isset($_GET[$val])?$_GET[$val]:'');
 }
-//获取客户端IP
+
 function get_ip()
 {
 	if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'),'unknown'))
@@ -298,12 +298,12 @@ function get_ip()
 	}
 	return $ip; 
 }
-//获取网站域名
+
 function get_domain()
 {
 	return $_SERVER['SERVER_PORT'] == '80'?$_SERVER['SERVER_NAME']:$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT']; 
 }
-//检查用户是否登录
+
 function check_user_login()
 {
 	global $user_id;
@@ -327,7 +327,7 @@ function check_user_login()
 		return 0;
 	}
 }
-//检查管理员是否登录
+
 function check_admin_login()
 {
 	global $admin_id;
@@ -382,7 +382,7 @@ function get_att_list($arr,$str,$code = '')
 }
 
 
-//自动包含指定目录下所有文件
+
 function include_all($dir)
 {
 	$scandir = scandir($dir);
@@ -394,7 +394,7 @@ function include_all($dir)
 		}
 	}
 }
-//复制目录
+
 function copy_dir($src,$dst)
 {
 	$dir = opendir($src);
@@ -416,7 +416,7 @@ function copy_dir($src,$dst)
 	}
 	closedir($dir);
 }
-//删除目录
+
 function del_dir($src)
 {
 	$dir = opendir($src);
@@ -434,7 +434,7 @@ function del_dir($src)
 	}
 	closedir($dir);
 }
-//生成随机数
+
 function get_random($val = '',$len = 3)
 {
 	if($val == '')
@@ -444,13 +444,13 @@ function get_random($val = '',$len = 3)
 		return $val . str_pad(mt_rand(1,pow(10,$len) - 1),$len,'0',STR_PAD_LEFT);
 	}
 }
-//提示出错
+
 function rhs_error()
 {
 	echo 'RHS Error:' . $_SERVER['REQUEST_URI'];
 	exit();
 }
-//加载语言包
+
 function load_lang_pack($name = array(),$project = 'index')
 {
 		
