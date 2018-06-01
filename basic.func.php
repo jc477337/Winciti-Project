@@ -1,4 +1,4 @@
-<?php
+get<?php
 function main()
 {
 	global $global,$smarty;
@@ -43,7 +43,7 @@ function set_more_global()
 	$global['channel'] = get_global('channel','index');
 	$global['cat'] = get_global('cat',0);
 	$global['page'] = get_global('page',1);
-	$global['id'] = ('id',0);
+	$global['id'] = get_global('id',0);
 }
 	
 //
